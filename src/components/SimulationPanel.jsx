@@ -1,18 +1,11 @@
-import { useState } from "react";
-import { simulateWorkflow } from "../services/api";
-
-export default function SimulationPanel({ nodes, edges }) {
-  const [logs, setLogs] = useState([]);
-
-  const run = async () => {
-    const result = await simulateWorkflow({ nodes, edges });
-    setLogs(result);
-  };
-
+export default function SimulationPanel({ runWorkflow, logs, score }) {
   return (
     <div style={panel}>
-      <button onClick={run}>Run Workflow</button>
-      {logs.map((l, i) => <div key={i}>{l}</div>)}
+      <button onClick={runWorkflow}>Run Workflow</button>
+      <p>Score: {score}</p>
+      {logs.map((l, i) => (
+        <div key={i}>{l}</div>
+      ))}
     </div>
   );
 }
@@ -20,8 +13,9 @@ export default function SimulationPanel({ nodes, edges }) {
 const panel = {
   position: "absolute",
   top: 10,
-  left: 220,
-  background: "#111827",
+  left: "50%",
+  transform: "translateX(-50%)",
+  background: "#1f2937",
+  padding: 10,
   color: "white",
-  padding: 10
 };
